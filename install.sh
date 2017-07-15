@@ -5,7 +5,9 @@
 
 #
 
-sudo apt-get install dialog
+main {
+
+check_os()
 
 declare -i INSTALL_SCRIPT_NUMBER=0
 
@@ -101,8 +103,12 @@ done
 
 clear
 
+}
+
+check_os() {
+
 #echo ""
-#echo "=====Checking linux distribution..."
+#echo "=====Checking GNU/Linux distribution..."
 #echo "========================================================="
 
 # check system
@@ -184,6 +190,10 @@ Write to us: developer@friendos.com" 8 40
     exit 1
 fi
 
+}
+
+setup_db() {
+
 # set up mysql database + user + access
 # echo "removing old database, if it exists: $mysql"
 # sudo rm $mysql
@@ -242,6 +252,10 @@ else
 	echo "found db $dbname, skipping"
 fi
 
+}
+
+install_modules() {
+
 echo ""
 echo "=====Compilation process in progress..."
 echo "========================================================="
@@ -286,6 +300,10 @@ echo "[Core]" >> build/cfg/cfg.ini
 echo "port = 6502" >> build/cfg/cfg.ini
 echo "SSLEnable = 0" >> build/cfg/cfg.ini
 
+}
+
+end_install() {
+
 
 #echo ""
 #echo "=====Installation complete"
@@ -293,7 +311,7 @@ echo "SSLEnable = 0" >> build/cfg/cfg.ini
 
 dialog --backtitle "Friend installer" --yesno "          Installation complete.\n\n\
 Once FriendCore is launched, you can access your local machine at:\n\
-http://localhost:6502\n\n\
+http://$(hostname):6502\n\n\
 Would you like to launch FriendCore?" 12 45
 
 if [ $? = "0" ]
@@ -307,4 +325,6 @@ else
 	echo "You can start FriendCore from the build folder."
 fi
 
-echo "FriendUP installation comleted :)"
+echo "FriendUP installation completed :)"
+
+}
