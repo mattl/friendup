@@ -8,6 +8,8 @@
 main {
 
 check_os()
+setup_db()
+end_install()
 
 declare -i INSTALL_SCRIPT_NUMBER=0
 
@@ -328,3 +330,6 @@ fi
 echo "FriendUP installation completed :)"
 
 }
+
+
+main
